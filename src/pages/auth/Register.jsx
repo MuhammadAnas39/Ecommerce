@@ -10,6 +10,7 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
+  const [answer, setAnswer] = useState("");
 
   async function handleRegister(e) {
     e.preventDefault();
@@ -21,6 +22,7 @@ const Register = () => {
         password,
         phone,
         address,
+        answer,
       });
       if (data.success) {
         toast.success(data.message);
@@ -151,6 +153,26 @@ const Register = () => {
                     onChange={(e) => setAddress(e.target.value)}
                     id="address"
                     name="address"
+                    type="text"
+                    required
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label
+                  htmlFor="answer"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Your mother name
+                </label>
+                <div className="mt-2">
+                  <input
+                    value={answer}
+                    onChange={(e) => setAnswer(e.target.value)}
+                    id="answer"
+                    name="answer"
                     type="text"
                     required
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
