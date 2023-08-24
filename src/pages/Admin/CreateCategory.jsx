@@ -5,6 +5,7 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 import { useAuth } from "../../context/authContext";
 import EditCatModal from "../../components/EditCatModal";
+import DeleteCatModal from "../../components/DeleteCatModal";
 
 const CreateCategory = () => {
   const [auth] = useAuth();
@@ -12,6 +13,7 @@ const CreateCategory = () => {
   const [catName, setCatName] = useState("");
 
   const [open, setOpen] = useState(false);
+  const [deleteOpen, setDeleteOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState({});
 
   const cancelButtonRef = useRef(null);
@@ -53,6 +55,11 @@ const CreateCategory = () => {
 
   function editButton(category) {
     setOpen(true);
+    setSelectedCategory(category);
+  }
+
+  function deleteButton(category) {
+    setDeleteOpen(true);
     setSelectedCategory(category);
   }
   useEffect(() => {
@@ -120,7 +127,10 @@ const CreateCategory = () => {
                           >
                             Edit
                           </button>
-                          <button className="btn btn-primary ml-2">
+                          <button
+                            onClick={() => deleteButton(e)}
+                            className="btn btn-danger ml-2"
+                          >
                             Delete
                           </button>
                         </td>
@@ -135,6 +145,13 @@ const CreateCategory = () => {
           <EditCatModal
             open={open}
             setOpen={setOpen}
+            cancelButtonRef={cancelButtonRef}
+            selectedCategory={selectedCategory}
+            getAllCategories={getAllCategories}
+          />
+          <DeleteCatModal
+            deleteOpen={deleteOpen}
+            setDeleteOpen={setDeleteOpen}
             cancelButtonRef={cancelButtonRef}
             selectedCategory={selectedCategory}
             getAllCategories={getAllCategories}
