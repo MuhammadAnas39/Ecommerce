@@ -28,6 +28,15 @@ const AdminMenu = () => {
         Create Product
       </Link>
       <Link
+        to="/dashboard/products"
+        className={`text-gray-300 hover:bg-gray-700 hover:text-white w-full p-2 rounded-sm text-sm ${
+          location.pathname === "/dashboard/create-product" &&
+          "text-gray-300 bg-gray-800 border-2 border-gray-500"
+        }`}
+      >
+        All Products
+      </Link>
+      <Link
         to="/dashboard/all-users"
         className={`text-gray-300 hover:bg-gray-700 hover:text-white w-full p-2 rounded-sm text-sm ${
           location.pathname === "/dashboard/all-users" &&

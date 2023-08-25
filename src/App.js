@@ -17,6 +17,7 @@ import AllUsers from "./pages/Admin/AllUsers";
 import UserDashboard from "./pages/auth/user/UserDashboard";
 import Profile from "./pages/auth/user/Profile";
 import Orders from "./pages/auth/user/Orders";
+import Product from "./pages/Admin/Product";
 
 function App() {
   const [auth] = useAuth();
@@ -33,6 +34,7 @@ function App() {
           <Route path="admin" element={<AdminDashboard />} />
           <Route path="create-category" element={<CreateCategory />} />
           <Route path="create-product" element={<CreateProduct />} />
+          <Route path="products" element={<Product />} />
           <Route path="all-users" element={<AllUsers />} />
         </Route>
         {!auth?.user && (
