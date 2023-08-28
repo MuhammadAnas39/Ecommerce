@@ -21,7 +21,6 @@ export default function PrivateRoute() {
         setOk(false);
       }
     };
-    console.log(auth);
     if (auth?.token) checkAuth();
   }, [auth]);
 

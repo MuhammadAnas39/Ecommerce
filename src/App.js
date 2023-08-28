@@ -18,6 +18,8 @@ import UserDashboard from "./pages/auth/user/UserDashboard";
 import Profile from "./pages/auth/user/Profile";
 import Orders from "./pages/auth/user/Orders";
 import Product from "./pages/Admin/Product";
+import UpdateProduct from "./pages/Admin/UpdateProduct";
+import SearchProduct from "./components/SearchProduct";
 
 function App() {
   const [auth] = useAuth();
@@ -25,6 +27,7 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/product/search" element={<SearchProduct />} />
         <Route path="/dashboard" element={<PrivateRoute />}>
           <Route path="user" element={<UserDashboard />} />
           <Route path="user/profile" element={<Profile />} />
@@ -33,7 +36,9 @@ function App() {
         <Route path="/dashboard" element={<AdminRouute />}>
           <Route path="admin" element={<AdminDashboard />} />
           <Route path="create-category" element={<CreateCategory />} />
+
           <Route path="create-product" element={<CreateProduct />} />
+          <Route path="product/:name" element={<UpdateProduct />} />
           <Route path="products" element={<Product />} />
           <Route path="all-users" element={<AllUsers />} />
         </Route>

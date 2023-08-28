@@ -20,7 +20,6 @@ export default function AdminRouute() {
         setOk(false);
       }
     };
-    console.log(auth);
     if (auth?.token) checkAuth();
   }, [auth]);
 

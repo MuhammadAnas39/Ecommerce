@@ -8,6 +8,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../../context/authContext";
+import SearchInput from "../SearchInput";
 
 const navigation = [
   { name: "Home", href: "/", current: true },
@@ -46,6 +47,7 @@ const Header = () => {
                   )}
                 </Disclosure.Button>
               </div>
+
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex flex-shrink-0 items-center">
                   <img
@@ -75,7 +77,7 @@ const Header = () => {
                   </div>
                 </div>
               </div>
-
+              <SearchInput />
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 {!auth?.user && (
                   <>

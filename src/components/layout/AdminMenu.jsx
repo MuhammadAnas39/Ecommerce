@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 
 const AdminMenu = () => {
   const location = useLocation();
-  console.log(location.pathname);
+
   return (
     <div className="flex flex-col justify-center items-center">
       <div className="w-full flex items-center justify-center bg-gray-300">
