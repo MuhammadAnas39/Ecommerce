@@ -10,7 +10,7 @@ const AllUsers = () => {
           <div className="col-span-2 bg-gray-800 m-4">
             <AdminMenu />
           </div>
-          <div className="col-span-4  bg-blue-800 p-4 m-4">Users</div>
+          <div className="col-span-4  bg-blue-800 p-4 m-4 h-44">Users</div>
         </div>
       </div>
     </Layout>

@@ -9,6 +9,7 @@ import {
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../../context/authContext";
 import SearchInput from "../SearchInput";
+import { useCart } from "../../context/cartContext";
 
 const navigation = [
   { name: "Home", href: "/", current: true },
@@ -20,6 +21,7 @@ function classNames(...classes) {
 }
 
 const Header = () => {
+  const [cart] = useCart();
   const [auth, setAuth] = useAuth();
   const location = useLocation();
 
@@ -113,12 +115,12 @@ const Header = () => {
                   </>
                 )}
                 <div className="hidden sm:ml-3 sm:block">
-                  <div className="flex space-x-4 relative">
+                  <Link to="/cart" className="flex space-x-4 relative">
                     <ShoppingBagIcon className="w-5 h-5 text-white mx-2" />
                     <div className="absolute -top-2 -right-1 flex justify-center items-center w-4 h-4 rounded-full bg-white font-semibold">
-                      10
+                      {cart?.length}
                     </div>
-                  </div>
+                  </Link>
                 </div>
 
                 {/* Profile dropdown */}
@@ -226,7 +228,7 @@ const Header = () => {
               >
                 Cart
                 <div className="absolute top-0 left-10 flex justify-center items-center w-4 h-4 rounded-full bg-white font-semibold text-black">
-                  10
+                  {cart?.length}
                 </div>
               </Link>
               {!auth?.user && (

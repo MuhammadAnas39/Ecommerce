@@ -6,8 +6,9 @@ import Layout from "../components/layout/Layout";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { Button, Radio } from "antd";
-import { Link, Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Pagination from "../components/Pagination";
+import { useCart } from "../context/cartContext";
 
 const filter = [
   {
@@ -50,6 +51,8 @@ const filter = [
 ];
 
 export default function HomePage() {
+  const [cart, setCart] = useCart();
+  const navigate = useNavigate();
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -392,18 +395,50 @@ export default function HomePage() {
                                   ${product.price}
                                 </h3>
                                 <div className="w-full flex items-center justify-evenly gap-3">
-                                  <button
-                                    onClick={() => console.log("Fsdfasd")}
-                                    className="bg-green-600 rounded-md w-full py-1 text-white text-center"
+                                  <Button
+                                    style={{
+                                      background: "green",
+                                      color: "white",
+                                    }}
+                                    onClick={() =>
+                                      navigate(`/product/${product.name}`)
+                                    }
+                                    type="button"
+                                    class="btn btn-outline-warning"
                                   >
                                     Read More
-                                  </button>
-                                  <button
+                                  </Button>
+                                  <Button
+                                    onClick={() => {
+                                      const existingProduct = cart.find(
+                                        (item) => item._id === product._id
+                                      );
+
+                                      if (existingProduct) {
+                                        // If product already exists in cart, update its quantity
+                                        const updatedCart = cart.map((item) =>
+                                          item._id === product._id
+                                            ? { ...item, qty: item.qty + 1 }
+                                            : item
+                                        );
+                                        setCart(updatedCart);
+                                      } else {
+                                        // If product doesn't exist in cart, add it with quantity 1
+                                        setCart([
+                                          ...cart,
+                                          { ...product, quantity: 1 },
+                                        ]);
+                                      }
+                                    }}
+                                    style={{
+                                      background: "red",
+                                      color: "white",
+                                    }}
                                     // onClick={() => Navigate("/produc")}
                                     className="bg-red-600 rounded-md w-full py-1 text-white cursor-pointer"
                                   >
                                     Add to Cart
-                                  </button>
+                                  </Button>
                                 </div>
                                 <div className="absolute top-2 right-0 bg-green-600 text-white font-semibold px-4 rounded-tl-md rounded-bl-md">
                                   {product.category.name}

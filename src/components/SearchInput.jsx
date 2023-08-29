@@ -15,7 +15,6 @@ const SearchInput = () => {
       )
     );
   }
-  console.log(data);
 
   useEffect(() => {
     async function getAllProducts() {
@@ -42,7 +41,7 @@ const SearchInput = () => {
       <form className="d-flex gap-2" role="search" onSubmit={handleSearch}>
         <input
           onChange={handleChange}
-          className="form-control me-2 bg-transparent border-2 border-gray-400 rounded-md w-56"
+          className="form-control me-2 bg-transparent border-2 border-gray-400 rounded-md "
           type="search"
           placeholder="Search"
           aria-label="Search"

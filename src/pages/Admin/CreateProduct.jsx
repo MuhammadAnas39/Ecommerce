@@ -66,7 +66,7 @@ const CreateProduct = () => {
     <Layout>
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <div className="grid grid-cols-6">
-          <div className=" col-span-full lg:col-span-2 bg-gray-800 m-4 h-36">
+          <div className=" col-span-full lg:col-span-2 bg-gray-800 m-4 h-44">
             <AdminMenu />
           </div>
           <div className="col-span-full md:col-span-4 p-4 m-4">
