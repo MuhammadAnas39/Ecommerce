@@ -404,7 +404,7 @@ export default function HomePage() {
                                       navigate(`/product/${product.name}`)
                                     }
                                     type="button"
-                                    class="btn btn-outline-warning"
+                                    className="btn btn-outline-warning"
                                   >
                                     Read More
                                   </Button>
@@ -423,12 +423,17 @@ export default function HomePage() {
                                         );
                                         setCart(updatedCart);
                                       } else {
+                                        toast.success("Item added to cart");
                                         // If product doesn't exist in cart, add it with quantity 1
                                         setCart([
                                           ...cart,
-                                          { ...product, quantity: 1 },
+                                          { ...product, qty: 1 },
                                         ]);
                                       }
+                                      localStorage.setItem(
+                                        "cart",
+                                        JSON.stringify([...cart, product])
+                                      );
                                     }}
                                     style={{
                                       background: "red",
