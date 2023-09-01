@@ -22,6 +22,7 @@ import UpdateProduct from "./pages/Admin/UpdateProduct";
 import SearchProduct from "./components/SearchProduct";
 import ProductDetail from "./pages/ProductDetail";
 import CartPage from "./pages/CartPage";
+import AllOrders from "./pages/Admin/AllOrders";
 
 function App() {
   const [auth] = useAuth();
@@ -45,6 +46,7 @@ function App() {
           <Route path="create-product" element={<CreateProduct />} />
           <Route path="product/:name" element={<UpdateProduct />} />
           <Route path="products" element={<Product />} />
+          <Route path="all-orders" element={<AllOrders />} />
           <Route path="all-users" element={<AllUsers />} />
         </Route>
 
