@@ -72,7 +72,7 @@ export default function CartPage() {
     <Layout title="Cart">
       {cart.length ? (
         <div className=" max-w-7xl grid grid-cols-6  bg-white shadow-xl mt-4 mx-auto gap-8">
-          <div className="col-span-4 overflow-y-auto px-4 py-6 sm:px-6">
+          <div className="col-span-full md:col-span-4 overflow-y-auto px-4 py-6 sm:px-6">
             <div className="">
               <div className="flow-root">
                 <ul role="list" className="-my-6 divide-y divide-gray-200">
@@ -119,7 +119,7 @@ export default function CartPage() {
             </div>
           </div>
 
-          <div className="col-span-2 shadow-md px-4 py-6 sm:px-6 min-h-56 ">
+          <div className="col-span-full md:col-span-2 shadow-md px-4 py-6 sm:px-6 min-h-56 ">
             <div className="flex justify-between text-base font-medium text-gray-900">
               <p>Subtotal</p>
               <p>{total()}</p>

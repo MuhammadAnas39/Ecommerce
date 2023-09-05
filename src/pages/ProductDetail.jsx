@@ -2,8 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Layout from "../components/layout/Layout";
 import axios from "axios";
+import { useCart } from "../context/cartContext";
+import { toast } from "react-hot-toast";
 
 const ProductDetail = () => {
+  const [cart, setCart] = useCart();
   const [product, setProduct] = useState({});
   const params = useParams();
 
@@ -14,10 +17,6 @@ const ProductDetail = () => {
       );
       setProduct(data?.product);
       console.log(product);
-      // const data = axios.put(
-      //   `/api/v1/product/update-product/64eb029ce8ab81f4bc018666}`
-      // );
-      // console.log(data);
     } catch (error) {
       console.log(error.message);
     }
@@ -53,27 +52,9 @@ const ProductDetail = () => {
                   <p className="text-xs">{product?.category?.name}</p>
                 </div>
                 <div className="flex ml-6 items-center">
-                  <span className="mr-3">Size</span>
+                  <span className="mr-3">Quantity</span>
                   <div className="relative">
-                    <select className="rounded border appearance-none border-gray-400 py-2 focus:outline-none focus:border-red-500 text-base pl-3 pr-10">
-                      <option>SM</option>
-                      <option>M</option>
-                      <option>L</option>
-                      <option>XL</option>
-                    </select>
-                    <span className="absolute right-0 top-0 h-full w-10 text-center text-gray-600 pointer-events-none flex items-center justify-center">
-                      <svg
-                        fill="none"
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        className="w-4 h-4"
-                        viewBox="0 0 24 24"
-                      >
-                        <path d="M6 9l6 6 6-6" />
-                      </svg>
-                    </span>
+                    <p>{product?.qty}</p>
                   </div>
                 </div>
               </div>
@@ -81,7 +62,32 @@ const ProductDetail = () => {
                 <span className="title-font font-medium text-2xl text-gray-900">
                   ${product?.price}
                 </span>
-                <button className="flex ml-auto text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded">
+                <button
+                  onClick={() => {
+                    const existingProduct = cart.find(
+                      (item) => item._id === product._id
+                    );
+
+                    if (existingProduct) {
+                      // If product already exists in cart, update its quantity
+                      const updatedCart = cart.map((item) =>
+                        item._id === product._id
+                          ? { ...item, qty: item.qty + 1 }
+                          : item
+                      );
+                      setCart(updatedCart);
+                    } else {
+                      toast.success("Item added to cart");
+                      // If product doesn't exist in cart, add it with quantity 1
+                      setCart([...cart, { ...product, qty: 1 }]);
+                    }
+                    localStorage.setItem(
+                      "cart",
+                      JSON.stringify([...cart, product])
+                    );
+                  }}
+                  className="flex ml-auto text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"
+                >
                   Add to Cart
                 </button>
               </div>

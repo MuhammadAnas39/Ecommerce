@@ -11,9 +11,9 @@ const UserMenu = () => {
       </div>
       <Link
         to="/dashboard/user/profile"
-        className={`text-gray-300 hover:bg-gray-700 hover:text-white w-full p-2 rounded-sm text-sm ${
+        className={`text-gray-300 hover:bg-gray-700 hover:text-white w-full p-2 rounded-sm text-sm hover:no-underline${
           location.pathname === "/dashboard/user/profile" &&
-          "text-gray-300 bg-gray-800 border-2 border-gray-500"
+          "text-gray-300 bg-gray-800 border-2 border-gray-500 "
         }`}
       >
         Profile

@@ -1,9 +1,8 @@
 import React from "react";
 import { TailSpin } from "react-loader-spinner";
-import Layout from "./layout/Layout";
 const Loader = () => {
   return (
-    <Layout>
+    <>
       <div
         style={{ height: "80vh" }}
         className="w-full flex justify-center items-center"
@@ -19,7 +18,7 @@ const Loader = () => {
           visible={true}
         />
       </div>
-    </Layout>
+    </>
   );
 };
 

@@ -10,10 +10,12 @@ import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../../context/authContext";
 import SearchInput from "../SearchInput";
 import { useCart } from "../../context/cartContext";
+import logo from "../../assets/logo.png";
 
 const navigation = [
   { name: "Home", href: "/", current: true },
-  { name: "Category", href: "/about", current: false },
+  { name: "About", href: "/about", current: false },
+  { name: "Contact Us", href: "/contact", current: false },
 ];
 
 function classNames(...classes) {
@@ -37,7 +39,7 @@ const Header = () => {
         <>
           <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
             <div className="relative flex h-16 items-center justify-between">
-              <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
+              <div className="absolute inset-y-0 left-0 flex items-center sm:hidden ">
                 {/* Mobile menu button*/}
                 <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                   <span className="absolute -inset-0.5" />
@@ -51,15 +53,11 @@ const Header = () => {
               </div>
 
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-                <div className="flex flex-shrink-0 items-center">
-                  <img
-                    className="h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                    alt="Your Company"
-                  />
+                <div className="hidden md:flex flex-shrink-0 items-center">
+                  <img className="w-32 " src={logo} alt="Your Company" />
                 </div>
 
-                <div className="hidden sm:ml-6 sm:block">
+                <div className="hidden sm:ml-6 sm:block my-auto">
                   <div className="flex space-x-4">
                     {navigation.map((item) => (
                       <Link
@@ -67,9 +65,9 @@ const Header = () => {
                         to={item.href}
                         className={classNames(
                           item.href === location.pathname
-                            ? "bg-gray-900 text-white"
+                            ? "bg-gray-900 text-white no-underline"
                             : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                          "rounded-md px-3 py-2 text-sm font-medium"
+                          "rounded-md px-3 py-2 text-sm font-medium no-underline"
                         )}
                         aria-current={item.current ? "page" : undefined}
                       >
@@ -162,20 +160,7 @@ const Header = () => {
                               </Link>
                             )}
                           </Menu.Item>
-                          <Menu.Item>
-                            {({ active }) => (
-                              <Link
-                                to="/"
-                                href="#"
-                                className={classNames(
-                                  active ? "bg-gray-100" : "",
-                                  "block px-4 py-2 text-sm text-gray-700"
-                                )}
-                              >
-                                Settings
-                              </Link>
-                            )}
-                          </Menu.Item>
+
                           <Menu.Item>
                             {({ active }) => (
                               <Link
@@ -184,7 +169,7 @@ const Header = () => {
                                 href="#"
                                 className={classNames(
                                   active ? "bg-gray-100" : "",
-                                  "block px-4 py-2 text-sm text-gray-700"
+                                  "block px-4 py-2 text-sm text-gray-700 "
                                 )}
                               >
                                 Sign out

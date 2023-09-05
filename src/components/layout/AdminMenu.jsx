@@ -39,7 +39,7 @@ const AdminMenu = () => {
       <Link
         to="/dashboard/all-orders"
         className={`text-gray-300 hover:bg-gray-700 hover:text-white w-full p-2 rounded-sm text-sm ${
-          location.pathname === "/dashboard/products" &&
+          location.pathname === "/dashboard/all-orders" &&
           "text-gray-300 bg-gray-800 border-2 border-gray-500"
         }`}
       >

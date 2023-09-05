@@ -9,6 +9,8 @@ import { Button, Radio } from "antd";
 import { useNavigate } from "react-router-dom";
 import Pagination from "../components/Pagination";
 import { useCart } from "../context/cartContext";
+import Loader from "../components/Loader";
+import Banner from "../assets/banner.jpg";
 
 const filter = [
   {
@@ -56,13 +58,14 @@ export default function HomePage() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const [check, setCheck] = useState([]);
   const [radio, setRadio] = useState([]);
 
   // -------------Pagination---------------
   const [currentPage, setCurrentPage] = useState(1);
-  const recordsPerPage = 5;
+  const recordsPerPage = 10;
   const lastIndex = currentPage * recordsPerPage;
   const firstIndex = lastIndex - recordsPerPage;
   const records = products.slice(firstIndex, lastIndex);
@@ -96,9 +99,12 @@ export default function HomePage() {
 
   async function getAllProducts() {
     try {
+      setLoading(true);
       const { data } = await axios.get("/api/v1/product/get-all-products");
       setProducts(data?.products);
+      setLoading(false);
     } catch (error) {
+      setLoading(false);
       toast.error("Something went wrong");
     }
   }
@@ -139,6 +145,7 @@ export default function HomePage() {
 
   return (
     <Layout title="Best Offers">
+      <img src={Banner} alt="" />
       <div className="bg-white">
         <div>
           {/* Mobile filter dialog */}
@@ -173,7 +180,8 @@ export default function HomePage() {
                   <Dialog.Panel className="relative ml-auto flex h-full w-full max-w-xs flex-col overflow-y-auto bg-white py-4 pb-12 shadow-xl">
                     <div className="flex items-center justify-between px-4">
                       <h2 className="text-lg font-medium text-gray-900">
-                        Filters
+                        {/* Show "Filter" text on mobile (sm:block) */}
+                        <span className="sm:block">Filter</span>
                       </h2>
                       <button
                         type="button"
@@ -218,29 +226,46 @@ export default function HomePage() {
                                 </Disclosure.Button>
                               </h3>
                               <Disclosure.Panel className="pt-6">
-                                <div className="space-y-6">
-                                  {section.options.map((option, optionIdx) => (
-                                    <div
-                                      key={optionIdx}
-                                      className="flex items-center"
+                                {section.id === "category" ? (
+                                  <>
+                                    {categories?.map((c) => (
+                                      <div key={c._id} className="space-y-4">
+                                        <div className="flex items-center">
+                                          <input
+                                            type="checkbox"
+                                            onChange={(e) =>
+                                              handleCatChange(
+                                                e.target.checked,
+                                                c._id
+                                              )
+                                            }
+                                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                          />
+                                          <label
+                                            htmlFor={`filter-${section.id}-${c._id}`}
+                                            className="ml-3 text-sm text-gray-600"
+                                          >
+                                            {c.name}
+                                          </label>
+                                        </div>
+                                      </div>
+                                    ))}
+                                  </>
+                                ) : (
+                                  <div className="space-y-4">
+                                    <Radio.Group
+                                      onChange={(e) => setRadio(e.target.value)}
                                     >
-                                      <input
-                                        id={`filter-mobile-${section.id}-${optionIdx}`}
-                                        name={`${section.id}[]`}
-                                        defaultValue={option.value}
-                                        type="checkbox"
-                                        defaultChecked={option.checked}
-                                        className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                                      />
-                                      <label
-                                        htmlFor={`filter-mobile-${section.id}-${optionIdx}`}
-                                        className="ml-3 min-w-0 flex-1 text-gray-500"
-                                      >
-                                        {option.label}
-                                      </label>
-                                    </div>
-                                  ))}
-                                </div>
+                                      {section.options.map((p) => (
+                                        <div key={p._id}>
+                                          <Radio value={p.array}>
+                                            {p.name}
+                                          </Radio>
+                                        </div>
+                                      ))}
+                                    </Radio.Group>
+                                  </div>
+                                )}
                               </Disclosure.Panel>
                             </>
                           )}
@@ -254,14 +279,14 @@ export default function HomePage() {
           </Transition.Root>
 
           <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center">
+            <div className="flex items-center mt-2">
               <button
                 type="button"
-                className="-m-2 ml-4 p-2 text-gray-400 hover:text-gray-500 sm:ml-6 lg:hidden"
+                className="-m-2 ml-4 p-2 text-gray-400 hover:text-gray-500 sm:ml-6 lg:hidden flex items-center"
                 onClick={() => setMobileFiltersOpen(true)}
               >
-                <span className="sr-only">Filters</span>
                 <FunnelIcon className="h-5 w-5" aria-hidden="true" />
+                <span className="">Filter</span>
               </button>
             </div>
 
@@ -358,6 +383,7 @@ export default function HomePage() {
                 <div className="lg:col-span-3">
                   <div className="bg-white">
                     <div className="mx-auto max-w-2xl px-4 py-4 sm:px-6 sm:py-2 lg:max-w-7xl lg:px-8">
+                      {loading && <Loader />}
                       <div className="mt-2 grid grid-cols-1 gap-x-3 gap-y-5 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-4">
                         {records.map((product) => (
                           <div
@@ -461,18 +487,20 @@ export default function HomePage() {
           </main>
         </div>
       </div>
-      <Pagination
-        prePageFunc={prePageFunc}
-        numbers={numbers}
-        changeCPage={changeCPage}
-        nextPageFunc={nextPageFunc}
-        currentPage={currentPage}
-        recordsPerPage={recordsPerPage}
-        lastIndex={lastIndex}
-        firstIndex={firstIndex}
-        nPages={nPages}
-        records={records}
-      />
+      {nPages > 1 && (
+        <Pagination
+          prePageFunc={prePageFunc}
+          numbers={numbers}
+          changeCPage={changeCPage}
+          nextPageFunc={nextPageFunc}
+          currentPage={currentPage}
+          recordsPerPage={recordsPerPage}
+          lastIndex={lastIndex}
+          firstIndex={firstIndex}
+          nPages={nPages}
+          records={records}
+        />
+      )}
     </Layout>
   );
 }

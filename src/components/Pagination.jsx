@@ -1,4 +1,5 @@
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
+import { useLocation } from "react-router-dom";
 
 export default function Pagination({
   numbers,
@@ -12,6 +13,7 @@ export default function Pagination({
   nPages,
   records,
 }) {
+  const location = useLocation();
   return (
     <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6 ">
       <div className="flex flex-1 justify-between sm:hidden">
@@ -23,7 +25,11 @@ export default function Pagination({
         </p>
       </div>
       <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between max-w-7xl mx-auto">
-        <div>
+        <div
+          className={`${
+            location.pathname === "/dashboard/all-orders" && "hidden"
+          }`}
+        >
           <p className="text-sm text-gray-700 ">
             Showing <span className="font-medium">{currentPage}</span> to{" "}
             <span className="font-medium">{firstIndex}</span> of{" "}

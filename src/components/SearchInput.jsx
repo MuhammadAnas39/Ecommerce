@@ -38,15 +38,19 @@ const SearchInput = () => {
   return (
     <div>
       {/* {JSON.stringify(value.data, null, 4)} */}
-      <form className="d-flex gap-2" role="search" onSubmit={handleSearch}>
+      <form
+        className="d-flex gap-2 mr-24 md:mr-0"
+        role="search"
+        onSubmit={handleSearch}
+      >
         <input
           onChange={handleChange}
-          className="form-control me-2 bg-transparent border-2 border-gray-400 rounded-md "
+          className="form-control me-2 bg-transparent border-2 border-gray-400 rounded-md text-white w-32 md:w-full"
           type="search"
           placeholder="Search"
           aria-label="Search"
         />
-        <button className="btn btn-outline-secondary" type="submit">
+        <button className="btn btn-outline-secondary text-xs" type="submit">
           Search
         </button>
       </form>

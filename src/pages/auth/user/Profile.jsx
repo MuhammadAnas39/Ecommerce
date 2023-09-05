@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import axios from "axios";
 import UserMenu from "../../../components/layout/UserMenu";
@@ -58,10 +57,10 @@ const Profile = () => {
     }
   }
   return (
-    <Layout>
-      <div className="mx-auto max-w-6xl px-2 sm:px-6 lg:px-8">
+    <Layout title="Profile">
+      <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <div className="grid grid-cols-6">
-          <div className="col-span-2 bg-gray-800 m-4">
+          <div className="col-span-full md:col-span-2 bg-gray-800 md:m-4 mt-2 md:mt-0 h-28">
             <UserMenu />
           </div>
           <div className="col-span-4   p-4 m-4">

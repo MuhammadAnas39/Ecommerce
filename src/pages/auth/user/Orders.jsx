@@ -26,10 +26,10 @@ const Orders = () => {
     getOrders();
   }, [auth?.token]);
   return (
-    <Layout>
-      <div className="mx-auto max-w-6xl px-2 sm:px-6 lg:px-8">
+    <Layout title="Orders">
+      <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <div className="grid grid-cols-6">
-          <div className="col-span-2 bg-gray-800 m-4">
+          <div className="col-span-full md:col-span-2 bg-gray-800 md:m-4 mt-2 md:mt-0 h-28">
             <UserMenu />
           </div>
           <div className="col-span-4 p-4 m-4">
@@ -57,10 +57,7 @@ const Orders = () => {
                     </tr>
                     <tr key={`products-${i}`}>
                       <td colSpan="6">
-                        <ul
-                          role="list"
-                          className="-my-6 divide-y divide-gray-200"
-                        >
+                        <ul className="-my-6 divide-y divide-gray-200">
                           {o?.products?.map((product) => (
                             <li key={product._id} className="flex py-6">
                               <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
